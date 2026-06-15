@@ -1,5 +1,6 @@
 import type { Note } from '@/types/note';
 import { api } from './api';
+import { User } from '@/types/user';
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -10,6 +11,11 @@ interface CreateNoteRequest {
   title: string;
   content: string;
   tag: string;
+}
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
 }
 
 export const fetchNotes = async (
@@ -46,6 +52,12 @@ export const deleteNote = async (id: string): Promise<Note> => {
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
   const response = await api.get<Note>(`/notes/${id}`);
+
+  return response.data;
+};
+
+export const register = async (data: RegisterRequest): Promise<User> => {
+  const response = await api.post<User>('/auth/register', data);
 
   return response.data;
 };
