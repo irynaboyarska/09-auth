@@ -18,6 +18,11 @@ export interface RegisterRequest {
   password: string;
 }
 
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
 export const fetchNotes = async (
   page: number,
   perPage: number,
@@ -59,5 +64,10 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
 export const register = async (data: RegisterRequest): Promise<User> => {
   const response = await api.post<User>('/auth/register', data);
 
+  return response.data;
+};
+
+export const login = async (data: LoginRequest): Promise<User> => {
+  const response = await api.post<User>('/auth/login', data);
   return response.data;
 };
