@@ -3,10 +3,10 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { createNote } from '@/lib/api';
 import { useNoteStore } from '@/lib/store/noteStore';
 import type { NoteTag } from '@/types/note';
 import css from './NoteForm.module.css';
+import { createNote } from '@/lib/api/clientApi';
 
 interface NoteFormValues {
   title: string;
