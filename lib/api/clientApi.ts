@@ -23,6 +23,10 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface UpdateMeRequest {
+  username: string;
+}
+
 export const fetchNotes = async (
   page: number,
   perPage: number,
@@ -69,5 +73,24 @@ export const register = async (data: RegisterRequest): Promise<User> => {
 
 export const login = async (data: LoginRequest): Promise<User> => {
   const response = await api.post<User>('/auth/login', data);
+  return response.data;
+};
+
+export const checkSession = async (): Promise<boolean> => {
+  const response = await api.get('/auth/session');
+  return response.status === 200;
+};
+
+export const getMe = async (): Promise<User> => {
+  const response = await api.get<User>('/users/me');
+  return response.data;
+};
+
+export const logout = async (): Promise<void> => {
+  await api.post('/auth/logout');
+};
+
+export const updateMe = async (data: UpdateMeRequest): Promise<User> => {
+  const response = await api.patch<User>('/users/me', data);
   return response.data;
 };
